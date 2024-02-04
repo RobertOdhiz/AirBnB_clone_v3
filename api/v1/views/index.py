@@ -29,6 +29,3 @@ def get_obj():
         "users": storage.count(User)
     }
     return jsonify(objects)
-
-
-@
