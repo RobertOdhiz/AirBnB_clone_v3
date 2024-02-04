@@ -79,7 +79,8 @@ class DBStorage:
         """retrieves and returns one object based on
            the class and its ID, or None """
         items = self.all().values()
-        obj = [item for item in items if isinstance(item, cls) and item.to_dict().get('id') == id]
+        obj = [item for item in items if isinstance(item, cls)
+               and item.to_dict().get('id') == id]
         if obj[0]:
             return obj[0]
         else:
