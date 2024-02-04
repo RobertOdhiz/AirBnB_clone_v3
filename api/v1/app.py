@@ -19,7 +19,7 @@ def clear_resource(exception=None):
 @app.errorhandler(404)
 def not_found(error):
     """ Handles 404 not found"""
-    return jsonify({'error': "not found"})
+    return jsonify({"error": "Not found"})
 
 
 if __name__ == "__main__":
