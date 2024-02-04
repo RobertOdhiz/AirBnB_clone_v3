@@ -15,10 +15,10 @@ def get_states():
         states_dict = [state.to_dict() for state in states]
 
         return states_dict
-    else:
+    elif request.method == 'POST':
         if not request.is_json:
             return jsonify({'error', 'Not a JSON'}), 400
-        req = request.json
+        req = request.get_json()
         if not req.get('name'):
             return jsonify({'error', 'Missing name'}), 400
         state = State(name=req.get('name'))
@@ -36,13 +36,32 @@ def get_state(state_id):
     return jsonify(state.to_dict())
 
 
-@app_views.route('/states/<state_id>', strict_slashes=False, methods=['DELETE'])
+@app_views.route('/states/<state_id>', strict_slashes=False, methods=['DELETE', 'PUT'])
 def del_state(state_id):
     """ deletes an individual state by id """
-    state = storage.get(State, state_id)
-    if state is None:
-        abort(404)
-    storage.delete(state)
-    storage.save()
+    if request.method == 'DELETE':
+        state = storage.get(State, state_id)
+        if state is None:
+            abort(404)
+        storage.delete(state)
+        storage.save()
 
-    return jsonify({})
+        return jsonify({})
+    elif request.method == 'PUT':
+        state = storage.get(State, state_id)
+        if state is None:
+            abort(404)
+        if not request.is_json:
+            return jsonify({'error', 'Not a JSON'}), 400
+
+        req = request.get_json()
+        req.pop('id', None)
+        req.pop('created_at', None)
+        req.pop('updated_at', None)
+
+        for key, value in req.items():
+            setattr(state, key, value)
+
+        storage.save()
+
+        return jsonify(state.to_dict()), 200
