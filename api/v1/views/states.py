@@ -36,7 +36,8 @@ def get_state(state_id):
     return jsonify(state.to_dict())
 
 
-@app_views.route('/states/<state_id>', strict_slashes=False, methods=['DELETE', 'PUT'])
+@app_views.route('/states/<state_id>', strict_slashes=False,
+                 methods=['DELETE', 'PUT'])
 def del_state(state_id):
     """ deletes an individual state by id """
     if request.method == 'DELETE':
