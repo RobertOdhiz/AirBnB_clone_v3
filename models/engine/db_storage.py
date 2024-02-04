@@ -81,7 +81,7 @@ class DBStorage:
         items = self.all().values()
         obj = [item for item in items if isinstance(item, cls)
                and item.to_dict().get('id') == id]
-        if obj[0]:
+        if obj:
             return obj[0]
         else:
             return None
