@@ -30,7 +30,7 @@ def get_post_amenities():
         req = get_json_file()
         if not req.get('name'):
             abort(400, description="Missing name")
-        amenity = Amenity(name=req.get('name'))
+        amenity = Amenity(**req)
         amenity.save()
         return jsonify(amenity.to_dict()), 201
 
