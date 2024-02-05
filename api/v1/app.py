@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ Defines a module that calls app.py """
 from api.v1.views import app_views
-from flask import Flask, jsonify
+from flask import Flask, jsonify, make_response
 from models import storage
 from os import getenv
 
@@ -20,7 +20,8 @@ def clear_resource(exception=None):
 @app.errorhandler(404)
 def page_not_found(error):
     """ Handles 404 not found error """
-    return jsonify({"error": "Not found"})
+    # return jsonify({"error": "Not found"})
+    return make_response(jsonify({'error': 'Not found'}), 404)
 
 
 @app.errorhandler(400)
