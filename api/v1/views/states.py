@@ -62,7 +62,7 @@ def del_state(state_id):
         req = get_json_file()
         keys = ['id', 'created_at', 'updated_at']
         for key, value in req.items():
-            if not key in keys:
+            if key not in keys:
                 setattr(state, key, value)
 
         storage.save()
