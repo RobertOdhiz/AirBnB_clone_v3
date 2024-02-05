@@ -34,7 +34,8 @@ def get_post_cities():
         return jsonify(cities_dict)
 
 
-@app_views.route('/states/<state_id>/cities', strict_slashes=False, methods=['POST', 'GET'])
+@app_views.route('/states/<state_id>/cities', strict_slashes=False,
+                 methods=['POST', 'GET'])
 def get_post_cities_by_state(state_id):
     """Gets or Posts the list of all City objects by state """
     states = get_class_obj_dict(State)
@@ -44,7 +45,8 @@ def get_post_cities_by_state(state_id):
 
     if request.method == 'GET':
         cities = get_class_obj_dict(City)
-        state_cities = [city for city in cities if city.get('state_id') == s_id[0]]
+        state_cities = [city for city in cities
+                        if city.get('state_id') == s_id[0]]
         return jsonify(state_cities)
 
     if request.method == 'POST':
@@ -81,7 +83,7 @@ def get_put_delete_city(city_id):
         req = get_json_file()
         keys = ['state_id', 'id', 'created_at', 'updated_at']
         for key, value in req.items():
-            if not key in keys:
+            if key not in keys:
                 setattr(city, key, value)
 
         storage.save()
