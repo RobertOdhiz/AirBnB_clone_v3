@@ -18,9 +18,15 @@ def clear_resource(exception=None):
 
 
 @app.errorhandler(404)
-def not_found(error):
-    """ Handles 404 not found"""
+def page_not_found(error):
+    """ Handles 404 not found error """
     return jsonify({"error": "Not found"})
+
+
+@app.errorhandler(400)
+def bad_request(e):
+    """ Handles 400 bad request error"""
+    return jsonify(error=e.description), 400
 
 
 if __name__ == "__main__":
