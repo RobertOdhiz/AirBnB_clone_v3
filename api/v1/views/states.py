@@ -29,7 +29,7 @@ def get_states():
         req = get_json_file()
         if not req.get('name'):
             abort(400, description="Missing name")
-        state = State(name=req.get('name'))
+        state = State(**req)
         state.save()
         return jsonify(state.to_dict()), 201
 
