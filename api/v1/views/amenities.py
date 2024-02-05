@@ -60,7 +60,7 @@ def get_put_delete_amenity(amenity_id):
         req = get_json_file()
         keys = ['id', 'created_at', 'updated_at']
         for key, value in req.items():
-            if not key in keys:
+            if key not in keys:
                 setattr(amenity, key, value)
 
         storage.save()
