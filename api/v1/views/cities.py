@@ -53,7 +53,7 @@ def get_post_cities_by_state(state_id):
         req = get_json_file()
         if not req.get('name'):
             abort(400, description="Missing name")
-        city = City(name=req.get('name'), state_id=s_id[0])
+        city = City(state_id=s_id[0], **req)
         city.save()
         return jsonify(city.to_dict()), 201
 
