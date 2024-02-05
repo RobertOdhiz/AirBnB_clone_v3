@@ -47,7 +47,7 @@ def get_post_reviews_by_place(place_id):
     if request.method == 'GET':
         reviews = get_class_obj_dict(Review)
         place_reviews = [review for review in reviews
-                       if review.get('place_id') == s_id[0]]
+                         if review.get('place_id') == s_id[0]]
         return jsonify(place_reviews)
 
     if request.method == 'POST':
